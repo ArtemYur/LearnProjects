@@ -128,6 +128,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -190,6 +191,9 @@
     <Content Include="Scripts\Home\SearchInput.jsx" />
     <Content Include="Scripts\Home\Content.jsx" />
     <Content Include="Scripts\Home\Jumbotron.jsx" />
+    <Content Include="Scripts\Home\SearchResult.jsx" />
+    <Content Include="Scripts\Home\ReferencesPanel.jsx" />
+    <Content Include="Scripts\Home\Link.jsx" />
     <None Include="Scripts\Libs\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Libs\jquery-1.10.2.js" />
     <Content Include="Scripts\Libs\jquery-1.10.2.min.js" />
@@ -205,9 +209,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\SearchResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Converter.cs" />
     <Compile Include="Services\GeoObjectRepository.cs" />
     <Compile Include="Services\IGeoObjectRepository.cs" />
+    <Compile Include="Services\JsonNetResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -228,7 +235,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
     <Folder Include="Views\Search\" />
   </ItemGroup>
   <ItemGroup>

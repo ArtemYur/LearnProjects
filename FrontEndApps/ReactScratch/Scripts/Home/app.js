@@ -17,7 +17,7 @@ var applyGeoObject = function (data) {
     }
 }
 
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+var mapDispatchToProps = function (dispatch) {
     return {
         onClickSearch: function onClickSearch(id) {
             dispatch(findGeoObjectById(id));
@@ -25,7 +25,14 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     };
 };
 
+var mapStateToProps = function (state) {
+    return {
+        searchResult: state.searchResult
+    }
+}
+
 var SearchInputDispatched = ReactRedux.connect(null, mapDispatchToProps)(SearchInput);
+var LinkDispatched = ReactRedux.connect(null, mapDispatchToProps)(Link);
 
 var defaultState = {
     searchResult: {

@@ -1,4 +1,5 @@
-﻿using ReactScratch.Services;
+﻿using ReactScratch.Models;
+using ReactScratch.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,15 +19,35 @@ namespace ReactScratch.Controllers
 
         public ActionResult Index(string tag)
         {
-            var geoObjectTable = _geoObjectRepository.Get().Result;
+            if(tag != null)
+            {
+                var geoObjectTable = _geoObjectRepository.Get().Result;
 
-            var result = tag != null ?
-                             geoObjectTable
-                                .Where(go => go.Name.ToLower() == tag.ToLower())
-                                .FirstOrDefault() :
-                             null;
+                var queryResult = geoObjectTable
+                                    .Where(go => go.Name.ToLower() == tag.ToLower())
+                                    .FirstOrDefault();
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+                if(queryResult != null)
+                {
+                    var result = queryResult.Convert();
+
+                    result.parentGeoObejct = geoObjectTable
+                                                .Where(go => go.GeoObjectId == queryResult.ParentId)
+                                                .FirstOrDefault()?
+                                                .Convert();
+
+                    result.childGeoObjects = new List<SearchResult>();
+                    geoObjectTable
+                        .Where(go => go.ParentId == result.id)?.ToList()?
+                        .ForEach(record =>
+                        {
+                            result.childGeoObjects.Add(record.Convert());
+                        });
+
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }                
+            }
+            return Json(null, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult AutoCompletion(string tag)
