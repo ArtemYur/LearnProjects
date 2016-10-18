@@ -11,9 +11,5 @@
     }
 });
 
-var SearchResultMapped = ReactRedux.connect(mapStateToProps, null)(SearchResult);
-var ReferencesPanelMapped = ReactRedux.connect(mapStateToProps, null)(ReferencesPanel)
-
 var mountNode = document.getElementById("root");
-
 ReactDOM.render(<Content />, mountNode);

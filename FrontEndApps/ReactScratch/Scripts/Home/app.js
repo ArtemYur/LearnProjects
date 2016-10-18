@@ -34,20 +34,14 @@ var mapStateToProps = function (state) {
 var SearchInputDispatched = ReactRedux.connect(null, mapDispatchToProps)(SearchInput);
 var LinkDispatched = ReactRedux.connect(null, mapDispatchToProps)(Link);
 
-var defaultState = {
-    searchResult: {
-        id: '',
-        name: '',
-        description: '',
-        parentGeoObejct: {
-            id: '',
-            name: ''
-        },
-        childGeoObjects: []
-    }
-};
+var SearchResultMapped = ReactRedux.connect(mapStateToProps, null)(SearchResult);
+var ReferencesPanelMapped = ReactRedux.connect(mapStateToProps, null)(ReferencesPanel);
+
+
+var defaultState = {}
 
 function app(state, action) {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
     if (action) {
         switch(action.type) {
             case actionTypes.FIND_GEO_OBJECT:
@@ -72,11 +66,16 @@ function app(state, action) {
                 break;
 
             default: 
-                return defaultState;
+                return state;
         }
     } else {
-        return defaultState;
+        return state;
     }    
 }
 
 var store = Redux.createStore(app);
+
+
+
+
+

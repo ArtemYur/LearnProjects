@@ -47,7 +47,7 @@ namespace ReactScratch.Controllers
                     return Json(result, JsonRequestBehavior.AllowGet);
                 }                
             }
-            return Json(null, JsonRequestBehavior.AllowGet);
+            return Json(new { }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult AutoCompletion(string tag)
