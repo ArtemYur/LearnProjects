@@ -3,7 +3,10 @@
         return (
             <div id="content" className="content">
                 <Jumbotron />
-                <SearchResultMapped />
+                <div className="container">
+                    <SearchResultMapped />
+                    <WatchedLinksMapped />
+                </div>                
             </div>
       );
     }

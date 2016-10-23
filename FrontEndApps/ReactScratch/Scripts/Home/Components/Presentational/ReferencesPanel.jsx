@@ -7,16 +7,20 @@
                     <div>
                         <p>Parent geo object</p>
                         <LinkDispatched name={this.props.searchResult.parentGeoObejct.name} id={this.props.searchResult.parentGeoObejct.id } />
-                        <br />
+                        <hr />
                     </div> :
                     ''
                 }
                 {
                     this.props.searchResult.childGeoObjects ?
                     <div>
-                        <p>Child geo objects</p>
-                        {this.props.searchResult.childGeoObjects.map(childGeoObject =>
-                        <LinkDispatched key={childGeoObject.id} name={childGeoObject.name} id={childGeoObject.id } /> )}
+                        <p>Related geo objects</p>
+                        {
+                            this.props.searchResult.childGeoObjects.map(childGeoObject =>
+                                <div key={childGeoObject.id}>
+                                    <LinkDispatched name={childGeoObject.name} id={childGeoObject.id} />
+                                </div>)
+                        }
                     </div> :
                     ''
                 }

@@ -6,6 +6,8 @@
               <div className="jumbotron text-center">
                   <h2>Let's find it!</h2>
                   <SearchInputDispatched />
+                  <br />
+                  <ControlsSectionDispatched />
               </div>
           </div>
       );

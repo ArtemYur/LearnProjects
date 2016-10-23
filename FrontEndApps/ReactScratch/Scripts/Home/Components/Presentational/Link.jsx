@@ -3,11 +3,8 @@
         return (
             <div>
                 <a href="#"
-                   onClick={() => {
-                                   this.props.onClickSearch(this.props.name);
-                                }}>{this.props.name}
+                   onClick={() => { this.props.onClick(this.props.name); }}>{this.props.name}
                 </a>
-                <br />
             </div>
             
       );

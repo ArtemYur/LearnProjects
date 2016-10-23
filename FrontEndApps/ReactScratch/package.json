@@ -1,0 +1,10 @@
+{
+	"version": "1.0.0",
+	"name": "asp.net",
+	"private": true,
+  "devDependencies": {
+    "npm": "3.10.9",
+    "redux-undo": "0.6.1",
+    "gulp": "3.9.1"
+  }
+}

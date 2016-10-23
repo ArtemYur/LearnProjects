@@ -197,6 +197,8 @@
     <Content Include="Scripts\Home\Components\Presentational\ReferencesPanel.jsx" />
     <Content Include="Scripts\Home\Components\Presentational\Link.jsx" />
     <Content Include="Scripts\Home\Components\Presentational\Content.jsx" />
+    <Content Include="Scripts\Home\Components\Presentational\ControlsSection.jsx" />
+    <Content Include="Scripts\Home\Components\Presentational\WatchedLinks.jsx" />
     <None Include="Scripts\Libs\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Libs\jquery-1.10.2.js" />
     <Content Include="Scripts\Libs\jquery-1.10.2.min.js" />

@@ -52,14 +52,22 @@ namespace ReactScratch.Controllers
 
         public ActionResult AutoCompletion(string tag)
         {
-            var geoObjectTable = _geoObjectRepository.Get().Result;
+            if(tag != null)
+            {
+                var geoObjectTable = _geoObjectRepository.Get().Result;
 
-            var results = tag != null ? 
-                            geoObjectTable
-                                .Where(go => go.Name.ToLower().Contains(tag.ToLower())) : 
-                            null;
-
-            return Json(results, JsonRequestBehavior.AllowGet);
+                var results = new List<SearchResult>();
+                geoObjectTable
+                    .Where(go => go.Name.ToLower().Contains(tag.ToLower()))?
+                    .ToList()
+                    .ForEach(record => 
+                    {
+                        results.Add(record.Convert());
+                    });
+                
+                return Json(results, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new string[] { }, JsonRequestBehavior.AllowGet);
         }
     }
 }
