@@ -1,10 +1,8 @@
-﻿using ReactScratch.Entities;
-using ReactScratch.Models;
+﻿using Newtonsoft.Json;
+using ReactScratch.Entities;
 using ReactScratch.Services;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ReactScratch.Controllers
@@ -25,26 +23,19 @@ namespace ReactScratch.Controllers
                 var geoObjectTable = _geoObjectRepository.Get().Result;
 
                 var primaryResult = geoObjectTable
-                                    .Where(go => go.Name.ToLower() == tag.ToLower())
+                                    .Where(go => go.Name.ToLower() == tag.ToLower())?
+                                    .Select(go => new GeoObject() { GeoObjectId = go.GeoObjectId, Name = go.Name, ImageUrl = go.ImageUrl })
                                     .FirstOrDefault();
 
                 if(primaryResult != null)
                 {
-                    var result = new List<SearchResult>();
+                    var result = new List<GeoObject>();
                     var leafs = FindLeafs(primaryResult);
-                    var parentOject = primaryResult.Convert();
-
-                    leafs.ForEach(leaf => 
-                    {
-                        var @object = leaf.Convert();
-                        @object.parentGeoObejct = parentOject;
-                        result.Add(@object);
-                    });
-
-                    return Json(result, JsonRequestBehavior.AllowGet);
+                    
+                    return Content(JsonConvert.SerializeObject(leafs), "application/json");
                 }
             }
-            return Json(new string [] { }, JsonRequestBehavior.AllowGet);
+            return Content("[]", "application/json");
         }
 
         protected List<GeoObject> FindLeafs(GeoObject parent)
@@ -52,14 +43,19 @@ namespace ReactScratch.Controllers
             var result = new List<GeoObject>();
             var geoObjectTable = _geoObjectRepository.Get().Result;
 
-            var childObejcts = geoObjectTable.Where(go => go.ParentId == parent.GeoObjectId)?.ToList();
+            var childObejcts = geoObjectTable
+                                .Where(go => go.ParentId == parent.GeoObjectId)?
+                                .Select(go => new GeoObject() { GeoObjectId = go.GeoObjectId, Name = go.Name, ImageUrl = go.ImageUrl })
+                                .ToList();
 
             if (childObejcts.Any())
             {
                 childObejcts
                     .ForEach(child =>
                     {
-                        result.AddRange(FindLeafs(child));
+                        var leafs = FindLeafs(child);
+                        leafs.ForEach(leaf => { leaf.ParentGeoObject = parent; });
+                        result.AddRange(leafs);
                     });
             }
             else
@@ -76,18 +72,14 @@ namespace ReactScratch.Controllers
             {
                 var geoObjectTable = _geoObjectRepository.Get().Result;
 
-                var results = new List<SearchResult>();
-                geoObjectTable
-                    .Where(go => go.Name.ToLower().Contains(tag.ToLower()))?
-                    .ToList()
-                    .ForEach(record => 
-                    {
-                        results.Add(record.Convert());
-                    });
+                var results = geoObjectTable
+                                .Where(go => go.Name.ToLower().Contains(tag.ToLower()))?
+                                .Select(go => new GeoObject() { GeoObjectId = go.GeoObjectId, Name = go.Name })
+                                .ToList();
                 
-                return Json(results, JsonRequestBehavior.AllowGet);
+                return Content(JsonConvert.SerializeObject(results), "application/json");
             }
-            return Json(new string[] { }, JsonRequestBehavior.AllowGet);
+            return Content("[]", "application/json");
         }
 
         public ActionResult GeoObject(int? id)
@@ -102,25 +94,20 @@ namespace ReactScratch.Controllers
 
                 if (queryResult != null)
                 {
-                    var result = queryResult.Convert();
+                    queryResult.ParentGeoObject = geoObjectTable
+                                                    .Where(go => go.GeoObjectId == queryResult.ParentId)?
+                                                    .Select(go => new GeoObject() { GeoObjectId = go.GeoObjectId, Name = go.Name })
+                                                    .FirstOrDefault();
 
-                    result.parentGeoObejct = geoObjectTable
-                                                .Where(go => go.GeoObjectId == queryResult.ParentId)
-                                                .FirstOrDefault()?
-                                                .Convert();
+                    queryResult.ChildObjects = geoObjectTable
+                                                    .Where(go => go.ParentId == queryResult.GeoObjectId)?
+                                                    .Select(go => new GeoObject() { GeoObjectId = go.GeoObjectId, Name = go.Name })
+                                                    .ToList();
 
-                    result.childGeoObjects = new List<SearchResult>();
-                    geoObjectTable
-                        .Where(go => go.ParentId == result.id)?.ToList()?
-                        .ForEach(record =>
-                        {
-                            result.childGeoObjects.Add(record.Convert());
-                        });
-
-                    return Json(result, JsonRequestBehavior.AllowGet);
+                    return Content(JsonConvert.SerializeObject(queryResult), "application/json");
                 }
             }
-            return Json(new { }, JsonRequestBehavior.AllowGet);
+            return Content("{}", "application/json");
         }
     }
 }

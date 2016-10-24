@@ -82,7 +82,12 @@ function executeSearch(tag) {
             success: function (data) {
                 dispatch(applySearchResult(data));
                 if (data.length > 0) {
-                    dispatch(updateWatchedLinks(data[0].parentGeoObejct.name));
+                    if (data[0].parentGeoObejct) {
+                        dispatch(updateWatchedLinks(data[0].parentGeoObejct.name));
+                    } else {
+                        dispatch(updateWatchedLinks(data[0].name));
+                    }
+                    
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
