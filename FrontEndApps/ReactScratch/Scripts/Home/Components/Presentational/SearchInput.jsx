@@ -3,7 +3,7 @@
         return (
             <form className="form-inline">
                 <div className="input-group">
-                    <ReactAutocomplete inputProps={{ className: "form-control", placeholder: "Type geo object name", type: "search", ref: "input" }} 
+                    <ReactAutocomplete inputProps={{ className: "form-control", placeholder: "Type geo object name", type: "search"}} 
                                        wrapperStyle={{}}
                                        menuStyle={{
                                             borderRadius: '3px',
@@ -22,7 +22,7 @@
                                        getItemValue={(item) => item.name}
                                        onSelect={(value, item) => { this.props.onClick(value); }}
                                        onChange={(event, value) => { this.props.executeAutocomplete(value); }}
-                                       
+
                                        renderItem={
                                            (item, isHighlighted)=>
                                                 (<p style={{ color: "black", textShadow: "none", cursor: "pointer", fontSize: "16px", align: "left"}}
@@ -31,7 +31,7 @@
 
                         />
                     <span className="input-group-btn">
-                        <button type="submit" className="btn-secondary btn btn-danger" onClick={() => { this.props.onClick(this.refs.input.value); } }>
+                        <button type="submit" className="btn-secondary btn btn-danger" onClick={() => { this.props.onClick(this.props.searchTag); }}>
                             <span className="glyphicon glyphicon-search"></span> Search
                         </button>
                     </span>

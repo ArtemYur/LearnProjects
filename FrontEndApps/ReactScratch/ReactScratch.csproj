@@ -181,12 +181,18 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\jpeg\berlin.jpg" />
+    <Content Include="Content\jpeg\canada.jpg" />
+    <Content Include="Content\jpeg\newyork.jpg" />
+    <Content Include="Content\jpeg\paris.jpg" />
+    <Content Include="Content\jpeg\redmond.JPG" />
     <Content Include="Content\jpeg\rsz_21920_1080_20141005090008956989.jpg" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Home\actions.js" />
     <Content Include="Scripts\Home\Components\containers.js" />
+    <Content Include="Scripts\Home\helpers.js" />
     <Content Include="Scripts\Home\reducers.js" />
     <Content Include="Scripts\Libs\bootstrap.js" />
     <Content Include="Scripts\Libs\bootstrap.min.js" />
@@ -199,6 +205,8 @@
     <Content Include="Scripts\Home\Components\Presentational\Content.jsx" />
     <Content Include="Scripts\Home\Components\Presentational\ControlsSection.jsx" />
     <Content Include="Scripts\Home\Components\Presentational\WatchedLinks.jsx" />
+    <Content Include="Scripts\Home\Components\Presentational\GeoObject.jsx" />
+    <Content Include="Scripts\Home\Components\Presentational\FooterLink.jsx" />
     <None Include="Scripts\Libs\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Libs\jquery-1.10.2.js" />
     <Content Include="Scripts\Libs\jquery-1.10.2.min.js" />

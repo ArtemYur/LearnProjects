@@ -5,8 +5,11 @@
                 <Jumbotron />
                 <div className="container">
                     <SearchResultMapped />
+                    <br />
+                    <GeoObjectMapped />
+                    <br />
                     <WatchedLinksMapped />
-                </div>                
+                </div>
             </div>
       );
     }

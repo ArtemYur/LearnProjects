@@ -23,22 +23,41 @@ var SearchInputDispatched = ReactRedux.connect(mapStateToPropsSearchInput, mapDi
 
 var mapDispatchToLink = function (dispatch) {
     return {
-        onClick: function (tag) {
-            dispatch(applyNewTag(tag));
-            dispatch(executeSearch(tag));
+        onClick: function (id, e) {
+            dispatch(retrieveGeoObject(id));
+            if (e) {
+                e.preventDefault();
+            }
         }
     }
 }
 var LinkDispatched = ReactRedux.connect(null, mapDispatchToLink)(Link);
 
 
-var mapStateToProps = function (state) {
+function mapDispatchToFooterLink(dispatch) {
+    return {
+        onClick: function (tag) {
+            dispatch(applyNewTag(tag));
+            dispatch(executeSearch(tag));
+        }
+    }
+}
+var FooterLinkMapped = ReactRedux.connect(null, mapDispatchToFooterLink)(FooterLink);
+
+
+function mapStateToSearchResult(state) {
     return {
         searchResult: state.searchResult
     }
 }
-var SearchResultMapped = ReactRedux.connect(mapStateToProps, null)(SearchResult);
-var ReferencesPanelMapped = ReactRedux.connect(mapStateToProps, null)(ReferencesPanel);
+function mapDispatchToSearchResult(dispatch) {
+    return {
+        onClick: function (id) {
+            dispatch(retrieveGeoObject(id));
+        }
+    }
+}
+var SearchResultMapped = ReactRedux.connect(mapStateToSearchResult, mapDispatchToSearchResult)(SearchResult);
 
 
 function mapDispatchToControlsSection(dispatch) { 
@@ -62,7 +81,7 @@ function mapDispatchToControlsSection(dispatch) {
             }            
         },
         onClickRemove: function () {
-            window.localStorage.getItem(StorageNames.PREVIOUS_STATE, '');
+            window.localStorage.setItem(StorageNames.PREVIOUS_STATE, '');
         }
     } 
 }
@@ -73,6 +92,15 @@ function mapStateToControlsSection(state) {
     }
 }
 var ControlsSectionDispatched = ReactRedux.connect(mapStateToControlsSection, mapDispatchToControlsSection)(ControlsSection);
+
+
+function mapStateToGeoObject(state) {
+    return {
+        geoObject: state.geoObject
+    }
+}
+var GeoObjectMapped = ReactRedux.connect(mapStateToGeoObject, null)(GeoObject);
+var ReferencesPanelMapped = ReactRedux.connect(mapStateToGeoObject, null)(ReferencesPanel);
 
 
 function mapStateToWatchedLinks(state) {

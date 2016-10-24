@@ -14,6 +14,8 @@ namespace ReactScratch.Entities
 
         public int ParentId { get; set; }
 
+        public string ImageUrl { get; set; }
+
         public string Description { get; set; }
     }
 }

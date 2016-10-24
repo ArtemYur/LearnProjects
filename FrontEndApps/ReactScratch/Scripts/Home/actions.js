@@ -1,13 +1,21 @@
 ﻿var actionTypes = {
-    APPLY_GEO_OBJECT: "APPLY_GEO_OBJECT",
+    APPLY_SEARCH_RESULT: "APPLY_SEARCH_RESULT",
     UNDO: "UNDO",
     REDO: "REDO",
     APPLY_NEW_TAG: "APPLY_NEW_TAG",
     UPDATE_WL: "UPDATE_WL",
     REFRESH_INPUT_TAG: "REFRESH_INPUT_TAG",
     LOAD_STATE: "LOAD_STATE",
-    APPLY_AUTOCOMPLETE: "APPLY_AUTOCOMPLETE"
+    APPLY_AUTOCOMPLETE: "APPLY_AUTOCOMPLETE",
+    APPLY_GEO_OBJECT: "APPLY_GEO_OBJECT"
 };
+
+function applySearchResult(data) {
+    return {
+        type: actionTypes.APPLY_SEARCH_RESULT,
+        data: data
+    }
+}
 
 function applyGeoObject(data) {
     return {
@@ -72,10 +80,28 @@ function executeSearch(tag) {
             type: "GET",
             data: "tag=" + tag,
             success: function (data) {
-                dispatch(applyGeoObject(data));
-                if (data.name) {
-                    dispatch(updateWatchedLinks(data.name));
+                dispatch(applySearchResult(data));
+                if (data.length > 0) {
+                    dispatch(updateWatchedLinks(data[0].parentGeoObejct.name));
                 }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("ERROR CALLING WEBSERVICE ", jqXHR);
+                console.log("Status code: ", textStatus);
+                console.log("Message: ", errorThrown);
+            }
+        });
+    }
+}
+
+function retrieveGeoObject(id) {
+    return function (dispatch) {
+        $.ajax({
+            url: "search/geoobject",
+            type: "GET",
+            data: "id=" + id,
+            success: function (data) {
+                dispatch(applyGeoObject(data));
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log("ERROR CALLING WEBSERVICE ", jqXHR);

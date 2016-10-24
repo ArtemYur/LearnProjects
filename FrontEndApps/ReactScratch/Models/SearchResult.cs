@@ -18,6 +18,8 @@ namespace ReactScratch.Models
         public string description { get; set; }
         
         public SearchResult parentGeoObejct { get; set; }
+
+        public string imageSrc { get; set; }
         
         public IList<SearchResult> childGeoObjects { get; set; }  
     }

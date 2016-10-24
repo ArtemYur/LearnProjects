@@ -2,8 +2,8 @@
     render: function () {
         return (
             <div>
-                <a href="#"
-                   onClick={() => { this.props.onClick(this.props.name); }}>{this.props.name}
+                <a href="#" onClick={(e) => { this.props.onClick(this.props.id, e); }}>
+                    {this.props.name}
                 </a>
             </div>
             

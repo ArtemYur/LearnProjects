@@ -16,7 +16,8 @@ namespace ReactScratch.Services
             {
                 id = record.GeoObjectId,
                 name = record.Name,
-                description = record.Description
+                description = record.Description,
+                imageSrc = record.ImageUrl
             };
         } 
     }

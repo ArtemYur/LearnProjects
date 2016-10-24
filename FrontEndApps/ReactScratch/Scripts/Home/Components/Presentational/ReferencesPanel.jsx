@@ -1,22 +1,22 @@
 ﻿var ReferencesPanel = React.createClass({
     render: function () {
         return (
-            <div className="col-sm-4">
+            <div className="col-sm-3">
                 {
-                    this.props.searchResult.parentGeoObejct ?
+                    this.props.geoObject.parentGeoObejct ?
                     <div>
                         <p>Parent geo object</p>
-                        <LinkDispatched name={this.props.searchResult.parentGeoObejct.name} id={this.props.searchResult.parentGeoObejct.id } />
+                        <LinkDispatched name={this.props.geoObject.parentGeoObejct.name} id={this.props.geoObject.parentGeoObejct.id } />
                         <hr />
                     </div> :
                     ''
                 }
                 {
-                    this.props.searchResult.childGeoObjects ?
+                    this.props.geoObject.childGeoObjects ?
                     <div>
                         <p>Related geo objects</p>
                         {
-                            this.props.searchResult.childGeoObjects.map(childGeoObject =>
+                            this.props.geoObject.childGeoObjects.map(childGeoObject =>
                                 <div key={childGeoObject.id}>
                                     <LinkDispatched name={childGeoObject.name} id={childGeoObject.id} />
                                 </div>)

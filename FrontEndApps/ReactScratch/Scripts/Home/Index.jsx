@@ -10,15 +10,9 @@ preloadedState.watchedLinks = watchedLinkes ? JSON.parse(watchedLinkes) : [];
 
 var store = Redux.createStore(app, preloadedState, Redux.applyMiddleware(ReduxThunk.default));
 
-
 var mountNode = document.getElementById("root");
 ReactDOM.render(
             <ReactRedux.Provider store={store}>
                 <Content />
             </ReactRedux.Provider>
             , mountNode);
-
-
-$(document).ready(function () {
-    $('[data-toggle="tooltip"]').tooltip();
-});

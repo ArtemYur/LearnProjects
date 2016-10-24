@@ -76,7 +76,7 @@ searchTag = undoable(searchTag);
 
 function searchResult(state, action) {
     switch (action.type) {
-        case actionTypes.APPLY_GEO_OBJECT:
+        case actionTypes.APPLY_SEARCH_RESULT:
             return action.data;
             break;
         default:
@@ -84,6 +84,15 @@ function searchResult(state, action) {
     }
 }
 
+function setGeoObject(state, action) {
+    switch (action.type) {
+        case actionTypes.APPLY_GEO_OBJECT:
+            return action.data;
+            break;
+        default:
+            return state;
+    }
+}
 
 function setWatchedLinks(state, action) {
     const NUMBER_OF_WL = 6;
@@ -127,6 +136,7 @@ function app(state, action) {
         searchResult: searchResult(state.searchResult, action),
         searchTag: searchTag(state.searchTag, action),
         watchedLinks: setWatchedLinks(state.watchedLinks, action),
-        autocomplete: setAutocoplete(state.autocomplete, action)
+        autocomplete: setAutocoplete(state.autocomplete, action),
+        geoObject: setGeoObject(state.geoObject, action)
     }
 }
