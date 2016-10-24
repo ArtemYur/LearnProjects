@@ -16,7 +16,3 @@
       );
     }
 });
-
-//<div key={i} className="col-sm-4 text-center">
-//                    <a href="#" onClick={() => { this.props.onClick(item.id); }}>{item.name}</a>
-//</div>

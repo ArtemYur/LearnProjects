@@ -1,7 +1,10 @@
 ﻿var mapDispatchToSearchInput = function (dispatch) {
     return {
-        onClick: function (tag) {
+        onClick: function (tag, e) {
             dispatch(executeSearch(tag));
+            if (e) {
+                e.preventDefault();
+            }            
         },
         onChange: function (value) {
             dispatch(refreshInputTag(value));

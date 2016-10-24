@@ -31,7 +31,7 @@
 
                         />
                     <span className="input-group-btn">
-                        <button type="submit" className="btn-secondary btn btn-danger" onClick={() => { this.props.onClick(this.props.searchTag); }}>
+                        <button type="submit" className="btn-secondary btn btn-danger" onClick={(e) => { this.props.onClick(this.props.searchTag, e); }}>
                             <span className="glyphicon glyphicon-search"></span> Search
                         </button>
                     </span>
